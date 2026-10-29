@@ -1,0 +1,63 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Publishing an empty directory would serve a 404 on the live domain,
+      # which is worse than not deploying at all.
+      - name: Refuse to publish an incomplete site
+        run: |
+          missing=0
+          for f in index.html myabuela.html tokens.css base.css style.css; do
+            if [ ! -f "$f" ]; then
+              echo "::error file=$f::$f is missing"
+              missing=1
+            fi
+          done
+          [ "$missing" -eq 0 ] || exit 1
+
+      # The Hallmark stamp has to survive as the first non-empty line of the
+      # stylesheet, which is what gate 20 reads.
+      - name: Check the Hallmark stamp
+        run: |
+          first=$(grep -m1 . style.css)
+          case "$first" in
+            /\**Hallmark*) echo "stamp ok: $first" ;;
+            *) echo "::error::style.css does not open on the Hallmark stamp: $first"; exit 1 ;;
+          esac
+
+      # The gate log and the before/after comparison are working notes. They
+      # stay in the repo and stay off the live domain.
+      - name: Keep the gate log out of the published site
+        run: rm -rf .hallmark
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

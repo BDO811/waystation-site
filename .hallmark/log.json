@@ -1,0 +1,29 @@
+[
+ {
+  "mode": "redesign",
+  "depth": "full",
+  "scope": "site",
+  "shape": "Marquee Hero",
+  "theme": "furrow",
+  "axes": "light/grotesk-sans/warm",
+  "hero": "Poster (index), Settled (myabuela)",
+  "nav": "masthead",
+  "footer": "mast",
+  "imagery": "none, the generated survey map carries the page",
+  "photos": [],
+  "entry": "none",
+  "fingerprint": "892a56",
+  "sections": [
+   "Hero/map",
+   "Index/money",
+   "Statement",
+   "Entry card/county",
+   "Rows/what we do",
+   "Close/contact"
+  ],
+  "signature": "the survey map of the service area with the hubs pinned, drawn on a canvas",
+  "waived": [],
+  "prompt": "rural health company that staffs and runs care management in remote New Mexico counties",
+  "date": "2026-10-29"
+ }
+]
