@@ -200,3 +200,51 @@
 @media (prefers-reduced-motion: reduce) {
   .btn { transition: none; }
 }
+
+/* ---------- markets: the states, in tabs ---------- */
+.tabs { margin-top: var(--space-xl); }
+.tablist { display: flex; flex-wrap: wrap; gap: var(--space-2xs);
+  border-bottom: 2px solid var(--color-ink); }
+.tablist button { font-family: var(--font-display); font-weight: var(--display-weight);
+  letter-spacing: var(--tracking-display); font-size: var(--text-md);
+  color: var(--color-muted); background: transparent; cursor: pointer;
+  border: var(--rule-hair) solid transparent; border-bottom: 0;
+  border-radius: var(--radius-pill) var(--radius-pill) 0 0;
+  padding: var(--space-sm) var(--space-md); margin-bottom: -2px;
+  transition: color var(--dur-micro) var(--ease-out),
+              background var(--dur-micro) var(--ease-out); }
+.tablist button:hover { color: var(--color-ink); background: var(--color-paper-3); }
+.tablist button[aria-selected="true"] { color: var(--color-ink);
+  background: var(--color-paper-2); border-color: var(--color-ink);
+  border-bottom: 2px solid var(--color-paper-2); }
+.market { padding-top: var(--space-2xl); }
+.market[hidden] { display: none; }
+.market .head h3 { font-family: var(--font-display); font-weight: var(--display-weight);
+  font-size: var(--text-section); letter-spacing: var(--tracking-display);
+  line-height: 1.04; margin: 0 0 var(--space-md); color: var(--color-ink);
+  text-wrap: balance; }
+.stance { display: inline-block; margin-bottom: var(--space-md);
+  font-family: var(--font-outlier); font-size: var(--text-xs);
+  padding: var(--space-3xs) var(--space-xs); border-radius: var(--radius-pill);
+  border: var(--rule-hair) solid var(--color-rule); color: var(--color-muted);
+  background: var(--color-paper-3); }
+.stance--live { color: var(--color-accent); background: var(--color-accent-soft);
+  border-color: var(--color-accent); }
+.sources { margin-top: var(--space-lg); font-size: var(--text-xs);
+  color: var(--color-muted); }
+
+/* the tablist wraps to more than one line here, so a connected edge stops
+   reading as connected. Separate the strip from the panel instead. */
+@media (max-width: 760px) {
+  .tablist { border-bottom: 0; gap: var(--space-xs); padding-bottom: var(--space-md); }
+  .tablist button { border: var(--rule-hair) solid var(--color-rule);
+    border-radius: var(--radius-pill); margin-bottom: 0; }
+  .tablist button[aria-selected="true"] { background: var(--color-ink);
+    color: var(--color-paper); border-color: var(--color-ink); }
+  .market { padding-top: 0; }
+}
+
+/* with no script every panel stays readable, stacked */
+.no-js .tablist { display: none; }
+.no-js .market[hidden] { display: block; }
+.no-js .market { padding-top: var(--space-2xl); }
