@@ -151,6 +151,38 @@
   border-top: var(--rule-hair) solid var(--color-rule);
   font-size: var(--text-sm); color: var(--color-muted); max-width: 70ch; }
 
+/* ---------- milepost: the two states ---------- */
+.states { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-columns); align-items: start; }
+.entry__note { padding: var(--space-xl); display: grid; gap: var(--space-md); }
+.entry__note p { margin: 0; max-width: none; }
+.entry__links { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-lg);
+  margin-top: var(--space-xs); padding-top: var(--space-md);
+  border-top: var(--rule-hair) solid var(--color-rule); }
+.entry__links a { font-size: var(--text-md); color: var(--color-ink-2);
+  text-decoration: underline; text-decoration-color: var(--color-accent);
+  text-decoration-thickness: 2px; overflow-wrap: anywhere; }
+.entry__links a:hover { text-decoration-color: var(--color-ink); }
+
+/* ---------- milepost: the five markers ---------- */
+.steps { list-style: none; margin: 0; padding: 0; border-top: var(--rule-hair) solid var(--color-ink); }
+.steps__row { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 10fr);
+  gap: var(--space-lg); padding-block: var(--space-xl);
+  border-bottom: var(--rule-hair) solid var(--color-rule); }
+.steps__mp { font-family: var(--font-outlier); font-variant-numeric: tabular-nums;
+  font-size: var(--text-lg); font-weight: 500; color: var(--color-accent); margin: 0; }
+.steps__row h3 { margin: 0 0 var(--space-xs); font-size: var(--text-title); }
+.steps__row p { margin: 0; }
+
+/* ---------- milepost: fit ---------- */
+.fit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap-columns);
+  border-top: var(--rule-hair) solid var(--color-ink); }
+.fit__col { padding-top: var(--space-lg); }
+.fit__col h3 { margin: 0 0 var(--space-md); font-size: var(--text-title); }
+.fit__col ul { margin: 0; padding: 0; list-style: none; }
+.fit__col li { padding-block: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule);
+  max-width: 46ch; }
+.fit__col li:last-child { border-bottom: 0; }
+
 /* ---------- myabuela ---------- */
 .ab-hero { padding-block: var(--space-4xl) var(--section-gap); }
 .ab-hero h1 { font-size: var(--text-display-s); overflow-wrap: break-word; min-width: 0; }
@@ -172,11 +204,133 @@
   color: var(--color-muted); white-space: nowrap; }
 .phone__said { margin: 0; color: var(--color-ink); }
 
+/* ---------- full bleed photograph band ----------
+ * Photographs ship greyscale and take their colour here, as a wash that runs
+ * cool on the left into terracotta on the right: the further out the road
+ * goes, the drier it gets, which is the whole argument of the site. Top and
+ * bottom feather into the paper so a band reads as part of the page. */
+.band { position: relative; isolation: isolate; overflow: hidden;
+  background: var(--color-paper-3); }
+.band img { display: block; width: 100%; height: clamp(200px, 29vw, 400px);
+  object-fit: cover; }
+.band::after { content: ""; position: absolute; inset: 0; z-index: 1;
+  pointer-events: none; mix-blend-mode: color;
+  background: linear-gradient(100deg,
+    var(--color-water) 0%, var(--color-water) 26%,
+    var(--color-contour) 54%,
+    var(--color-accent) 78%, var(--color-accent) 100%); }
+.band::before { content: ""; position: absolute; inset: 0; z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(180deg,
+    var(--color-paper) 0%,
+    color-mix(in oklab, var(--color-paper) 10%, transparent) 26%,
+    color-mix(in oklab, var(--color-paper) 10%, transparent) 62%,
+    var(--color-paper) 100%); }
+.band--onpaper2::before { background: linear-gradient(180deg,
+    var(--color-paper-2) 0%,
+    color-mix(in oklab, var(--color-paper-2) 10%, transparent) 26%,
+    color-mix(in oklab, var(--color-paper-2) 10%, transparent) 62%,
+    var(--color-paper-2) 100%); }
+.band figcaption { position: absolute; z-index: 3; left: 0; right: 0; bottom: 0;
+  padding: var(--space-lg) var(--gutter); font-family: var(--font-outlier);
+  font-size: var(--text-xs); display: flex; flex-wrap: wrap;
+  gap: var(--space-2xs) var(--space-md); }
+/* each part carries its own paper chip, so a caption stays legible over
+ * whatever part of the photograph it lands on */
+.band figcaption b, .band figcaption span { padding: 3px var(--space-xs);
+  border-radius: 3px; background: color-mix(in oklab, var(--color-paper) 86%, transparent); }
+.band figcaption b { font-weight: 500; color: var(--color-ink); }
+.band figcaption span { color: var(--color-ink-2); }
+
+/* ---------- framed figure ---------- */
+.figure { margin: 0; display: grid; gap: var(--space-md); }
+.figure__frame { background: var(--color-sheet); padding: var(--space-xl);
+  border-radius: var(--radius-entry); box-shadow: 0 0 0 1px var(--color-ink); }
+.figure figcaption { font-size: var(--text-sm); color: var(--color-muted);
+  max-width: 76ch; }
+
+/* ---------- New Mexico, by county ---------- */
+.nmmap { display: block; inline-size: auto; max-inline-size: 100%;
+  block-size: auto; max-block-size: 480px; margin-inline: auto; }
+.nmmap__rest path { fill: var(--color-paper-3); stroke: var(--color-sheet);
+  stroke-width: 2.4; }
+.nmmap__home path { fill: var(--color-accent); stroke: var(--color-sheet);
+  stroke-width: 2.4; }
+.nmmap__pin { fill: none; stroke: var(--color-ink); stroke-width: 3; }
+
+.legend { display: flex; flex-wrap: wrap; gap: var(--space-sm) var(--space-lg); }
+.legend > span { display: inline-flex; align-items: center; gap: var(--space-xs);
+  font-family: var(--font-outlier); font-size: var(--text-xs);
+  color: var(--color-ink-2); }
+.legend i { inline-size: 15px; block-size: 15px; border-radius: 3px; flex: none; }
+.legend i.is-home { background: var(--color-accent); }
+.legend i.is-rest { background: var(--color-paper-3);
+  box-shadow: inset 0 0 0 1px var(--color-rule); }
+
+/* ---------- bars ---------- */
+.bars { display: grid; gap: var(--space-lg); }
+.bar__top { display: flex; justify-content: space-between; align-items: baseline;
+  gap: var(--space-md); margin-bottom: var(--space-xs); }
+.bar__top p { margin: 0; max-width: none; }
+.bar__name { font-size: var(--text-md); }
+.bar__val { font-family: var(--font-outlier); font-variant-numeric: tabular-nums;
+  font-weight: 500; font-size: var(--text-lg); }
+.bar__track { block-size: 15px; border-radius: var(--radius-pill);
+  background: color-mix(in oklab, var(--color-ink) 10%, transparent);
+  overflow: hidden; }
+.bar__fill { block-size: 100%; border-radius: var(--radius-pill);
+  background: var(--color-accent); }
+.bar__fill--quiet { background: var(--color-contour); }
+.bar__fill--green { background: var(--color-hedge); }
+.bar__note { font-size: var(--text-sm); color: var(--color-muted);
+  margin: var(--space-xs) 0 0; }
+
+/* ---------- a count, drawn ---------- */
+.dots { display: flex; flex-wrap: wrap; gap: 5px; margin-block: var(--space-sm); }
+.dots i { inline-size: 14px; block-size: 14px; border-radius: 3px; flex: none;
+  background: var(--color-paper-3); box-shadow: inset 0 0 0 1px var(--color-rule); }
+.dots i.is-on { background: var(--color-accent); box-shadow: none; }
+.counts { display: grid; gap: var(--space-xl);
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+/* the counts sit inside .case, which is a two column grid, so they have to be
+ * told to run the whole width rather than drop into the narrow column */
+.case > .counts { grid-column: 1 / -1; margin-top: var(--space-2xl);
+  padding-top: var(--space-2xl);
+  border-top: var(--rule-hair) solid var(--color-rule); }
+.count h3 { margin: 0; font-size: var(--text-md); font-weight: 500; }
+.count p { margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
+
+/* ---------- line icons ---------- */
+.ico { inline-size: 27px; block-size: 27px; flex: none; color: var(--color-accent);
+  fill: none; stroke: currentColor; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round; }
+.rows__row h3, .states h3 { display: flex; align-items: flex-start;
+  gap: var(--space-sm); }
+.fit__col li { display: flex; align-items: flex-start; gap: var(--space-sm); }
+.fit__col .ico { inline-size: 21px; block-size: 21px; margin-top: 2px;
+  color: var(--color-hedge); }
+.fit__col--no .ico { color: var(--color-accent); }
+
+/* ---------- the five markers, as a road ---------- */
+.steps--flow { position: relative; }
+.steps--flow::before { content: ""; position: absolute; inset-block: 58px;
+  inset-inline-start: 43px; inline-size: 2px; background: var(--color-rule); }
+.steps--flow .steps__row { grid-template-columns: 112px minmax(0, 1fr);
+  align-items: start; }
+.steps--flow .steps__mp { position: relative; z-index: 1; display: inline-block;
+  padding: var(--space-xs) var(--space-sm); border-radius: var(--radius-pill);
+  background: var(--color-paper); color: var(--color-ink);
+  box-shadow: 0 0 0 2px var(--color-accent); font-size: var(--text-md); }
+.section--paper2 .steps--flow .steps__mp { background: var(--color-paper-2); }
+
 /* ---------- responsive ---------- */
 @media (max-width: 68rem) {
   .close .mailto { font-size: var(--text-xl); }
 }
 @media (max-width: 60rem) {
+  .states { grid-template-columns: minmax(0, 1fr); }
+  .fit { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+  .steps__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
   .case { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }
   .close__top { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); align-items: start; }
   .close .mailto { font-size: var(--text-xl); }
@@ -187,6 +341,12 @@
   .rows__row { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
   .hero { min-height: auto; }
   .hero__body { padding-block: var(--space-4xl) var(--space-3xl); }
+  .band figcaption { padding-inline: var(--space-lg); }
+  .figure__frame { padding: var(--space-lg); }
+  .steps--flow .steps__row { grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-sm); }
+  .steps--flow::before { display: none; }
+  .steps--flow .steps__mp { justify-self: start; }
 }
 @media (max-width: 40rem) {
   .close .mailto { font-size: var(--text-lg); }
@@ -200,51 +360,3 @@
 @media (prefers-reduced-motion: reduce) {
   .btn { transition: none; }
 }
-
-/* ---------- markets: the states, in tabs ---------- */
-.tabs { margin-top: var(--space-xl); }
-.tablist { display: flex; flex-wrap: wrap; gap: var(--space-2xs);
-  border-bottom: 2px solid var(--color-ink); }
-.tablist button { font-family: var(--font-display); font-weight: var(--display-weight);
-  letter-spacing: var(--tracking-display); font-size: var(--text-md);
-  color: var(--color-muted); background: transparent; cursor: pointer;
-  border: var(--rule-hair) solid transparent; border-bottom: 0;
-  border-radius: var(--radius-pill) var(--radius-pill) 0 0;
-  padding: var(--space-sm) var(--space-md); margin-bottom: -2px;
-  transition: color var(--dur-micro) var(--ease-out),
-              background var(--dur-micro) var(--ease-out); }
-.tablist button:hover { color: var(--color-ink); background: var(--color-paper-3); }
-.tablist button[aria-selected="true"] { color: var(--color-ink);
-  background: var(--color-paper-2); border-color: var(--color-ink);
-  border-bottom: 2px solid var(--color-paper-2); }
-.market { padding-top: var(--space-2xl); }
-.market[hidden] { display: none; }
-.market .head h3 { font-family: var(--font-display); font-weight: var(--display-weight);
-  font-size: var(--text-section); letter-spacing: var(--tracking-display);
-  line-height: 1.04; margin: 0 0 var(--space-md); color: var(--color-ink);
-  text-wrap: balance; }
-.stance { display: inline-block; margin-bottom: var(--space-md);
-  font-family: var(--font-outlier); font-size: var(--text-xs);
-  padding: var(--space-3xs) var(--space-xs); border-radius: var(--radius-pill);
-  border: var(--rule-hair) solid var(--color-rule); color: var(--color-muted);
-  background: var(--color-paper-3); }
-.stance--live { color: var(--color-accent); background: var(--color-accent-soft);
-  border-color: var(--color-accent); }
-.sources { margin-top: var(--space-lg); font-size: var(--text-xs);
-  color: var(--color-muted); }
-
-/* the tablist wraps to more than one line here, so a connected edge stops
-   reading as connected. Separate the strip from the panel instead. */
-@media (max-width: 760px) {
-  .tablist { border-bottom: 0; gap: var(--space-xs); padding-bottom: var(--space-md); }
-  .tablist button { border: var(--rule-hair) solid var(--color-rule);
-    border-radius: var(--radius-pill); margin-bottom: 0; }
-  .tablist button[aria-selected="true"] { background: var(--color-ink);
-    color: var(--color-paper); border-color: var(--color-ink); }
-  .market { padding-top: 0; }
-}
-
-/* with no script every panel stays readable, stacked */
-.no-js .tablist { display: none; }
-.no-js .market[hidden] { display: block; }
-.no-js .market { padding-top: var(--space-2xl); }
